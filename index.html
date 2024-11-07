@@ -1,154 +1,104 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>INPUT WEB SYSTEM</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chinggu</title>
     <style>
-        /* Default Light Mode Styles */
         body {
-            font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-            color:#281b27;
-            background-image: url('lilac.jpg');
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url('d.jpg'); /* Replace with your body background image URL */
             background-size: cover;
-            transition: background-color 0.3s, color 0.3s;
-        }
-        form {
-            margin: 0 auto;
-            width: 300px;
-            padding: 50px;
-            background-color: rgba(232, 230, 234, 0.229);
-            border-radius: 15px;
-            transition: background-color 0.3s;
-        }
-        input[type="text"], textarea, select {
-            width: 100%;
-            padding: 8px;
-            margin: 5px 0;
-            border: 1px solid #ccc;
-            border-radius: 15px;
-        }
-        input[type="submit"] {
-            background-color: #964caf;
-            color: rgb(0, 0, 0);
-            padding: 10px 15px;
-            border: none;
-            border-radius: 15px;
-            cursor: pointer;
-        }
-        input[type="submit"]:hover {
-            background-color: #a1649b;
+            background-position: center;
+            transition: background-image 0.3s ease-in-out;
+            color: white;
+            font-family: Arial, sans-serif;
         }
 
-        /* Dark Mode Styles */
-        body.dark-mode {
-            background-color: #333;
-            color: #ccc;
+        .container {
+            background-color: rgba(0, 0, 0, 0);
+            padding: 50px;
+            border-radius: 10px;
+            text-align: center;
+            opacity: 1;
+            transition: opacity 0.2s ease-in-out;
+            background-image: url('.jpg'); /* Replace with your container background image URL */
+            background-size: cover;
+            background-position: center;
         }
-        body.dark-mode form {
-            background-color: rgba(50, 50, 50, 0.7);
-        }
-        body.dark-mode input[type="text"], 
-        body.dark-mode textarea, 
-        body.dark-mode select {
-            border: 1px solid #555;
-            background-color: #444;
-            color: #eee;
-        }
-        body.dark-mode input[type="submit"] {
-            background-color: #6a0d91;
-            color: #fff;
-        }
-        body.dark-mode input[type="submit"]:hover {
-            background-color: #8e2b9e;
-        }
-        .toggle-btn {
-            position: fixed;
-            top: 10px;
-            right: 10px;
-            padding: 10px;
-            background-color: #964caf;
-            color: #fff;
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #ae42b84d;
+            color: white;
             border: none;
             border-radius: 5px;
-            cursor: pointer;
-            z-index: 1000;
+            transition: background-color 0.3s;
         }
-        .toggle-btn.dark-mode {
-            background-color: #6a0d91;
+
+        button:hover {
+            background-color: #b318c7;
+        }
+
+        img {
+            display: block; /* Center the image */
+            margin: 10px auto; /* Centering margin */
+            max-width: 100%; /* Ensure the image is responsive */
+            height: auto;
+            border-radius: 5px;
         }
     </style>
 </head>
 <body>
+    <div class="container" id="content">
+        <h1>Hi, Welcome!</h1>
+        <image src="shak.gif" height="500px" width="300px"></image>
+        <p>Wanna be my friend? </p>
+        <button id="changeContent">Click here now, hurry!</button>
+    </div>
 
-<h2 align="center">INPUT WEB SYSTEM</h2>
+    <script>
+        const backgrounds = [
+            "cute.gif" // Replace with your GIF URL
+        ];
 
-<button class="toggle-btn" id="toggleBtn">Switch to Dark Mode</button>
+        const contents = [
+            {
+                title: "Hello Chinggu! Don't Run.",
+                image: "i.gif" // Replace with your image URL
+            }
+        ];
 
-<form id="myForm" action="/submit" method="POST">
-  <label for="fname">FIRST NAME</label>
-  <input type="text" id="fname" name="firstname" placeholder="Your Name.." required>
+        let currentIndex = 0;
 
-  <label for="lname">LAST NAME</label>
-  <input type="text" id="lname" name="lastname" placeholder="Your Last Name.." required>
+        document.getElementById("changeContent").addEventListener("click", function() {
+            currentIndex = (currentIndex + 1) % backgrounds.length;
 
-  <label for="country">Country</label>
-  <select id="country" name="country" required>
-    <option value="Japan">Japan</option>
-    <option value="South Korea">South Korea</option>
-    <option value="Philippine">Philippine</option>
-    <option value="Paris">Paris</option>
-    <option value="Thailand">Thailand</option>
-  </select>
+            // Fade out the content
+            const content = document.getElementById("content");
+            content.style.opacity = 0;
 
-  <label for="subject">Subject</label>
-  <textarea id="subject" name="subject" placeholder="Write something.." style="height:100px" required></textarea>
+            // Change background image
+            document.body.style.backgroundImage = `url(${backgrounds[currentIndex]})`;
 
-  <input type="submit" value="Submit">
-</form>
+            // Change content after the fade-out duration
+            setTimeout(() => {
+                content.innerHTML = `
+                    <h1>${contents[currentIndex].title}</h1>
+                    <p>Why are you running? I just want to be your friend.</p>
+                    <img src="${contents[currentIndex].image}" alt="Cute Image">
 
-<script>
-    // Toggle dark mode functionality
-    const toggleBtn = document.getElementById('toggleBtn');
-    const body = document.body;
-
-    toggleBtn.addEventListener('click', () => {
-        body.classList.toggle('dark-mode');
-        toggleBtn.classList.toggle('dark-mode');
-
-        if (body.classList.contains('dark-mode')) {
-            toggleBtn.textContent = 'Switch to Light Mode';
-        } else {
-            toggleBtn.textContent = 'Switch to Dark Mode';
-        }
-    });
-
-    // Form submission logic
-    document.getElementById('myForm').addEventListener('submit', function(event) {
-        // Prevent default form submission
-        event.preventDefault();
-
-        // Get form values
-        var firstName = document.getElementById('fname').value;
-        var lastName = document.getElementById('lname').value;
-        var country = document.getElementById('country').value;
-        var subject = document.getElementById('subject').value;
-
-        // Simple validation
-        if (firstName === '' || lastName === '' || subject === '') {
-            alert('Please fill out all fields.');
-            return;
-        }
-
-        // Display form values in an alert (you can replace this with form submission logic)
-        alert('Form submitted successfully! Thank You!\n' +
-              'First Name: ' + firstName + '\n' +
-              'Last Name: ' + lastName + '\n' +
-              'Country: ' + country + '\n' +
-              'Subject: ' + subject);
-
-        // Optionally, you can submit the form here if validation passes
-        // this.submit(); // Uncomment this line to allow the form to be submitted
-    });
-</script>
-
+                `;
+                // Fade in the content
+                content.style.opacity = 1;
+            }, 200); // Match with the CSS transition duration
+        });
+    </script>
 </body>
 </html>
